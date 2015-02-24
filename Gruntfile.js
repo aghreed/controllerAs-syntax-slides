@@ -1,4 +1,4 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 
   // Project configuration.
   grunt.initConfig({
@@ -9,21 +9,21 @@ module.exports = function(grunt) {
       post: ['dist/temp'],
     },
 
-    less:{
-      app:{
+    less: {
+      app: {
         options: {
           paths: ['src/assets/less']
         },
-        files : {
+        files: {
           'dist/temp/style.css': 'src/assets/less/style.less'
         }
       }
     },
 
-    cssmin :{
-      combine : {
-        files : {
-          'dist/assets/css/style.css':[
+    cssmin: {
+      combine: {
+        files: {
+          'dist/assets/css/style.css': [
             'src/assets/js/components/reveal.js/lib/css/zenburn.css',
             'dist/temp/style.css'
           ]
@@ -31,9 +31,9 @@ module.exports = function(grunt) {
       }
     },
 
-    concat:{
-      dist : {
-        src : [
+    concat: {
+      dist: {
+        src: [
           // Reveal.js
           'src/assets/js/components/headjs/dist/head.js',
           'src/assets/js/components/reveal.js/js/reveal.js',
@@ -53,16 +53,16 @@ module.exports = function(grunt) {
       }
     },
 
-    uglify : {
-      dist : {
+    uglify: {
+      dist: {
         files: {
-          'dist/assets/js/app.js' : ['dist/temp/app.js']
+          'dist/assets/js/app.js': ['dist/temp/app.js']
         }
       }
     },
 
     jade: {
-      options : {
+      options: {
         pretty: true
       },
       index: {
@@ -72,48 +72,48 @@ module.exports = function(grunt) {
           }
         },
         files: {
-          'dist/index.html' : ['src/views/index.jade']
+          'dist/index.html': ['src/views/index.jade']
         }
       }
     },
 
     copy: {
-      vendor : {
+      vendor: {
         files: [
           {
             expand: true,
             cwd: 'src/assets/js/components/reveal.js/lib/font',
-            src:['**'],
-            dest:'dist/assets/font'
+            src: ['**'],
+            dest: 'dist/assets/font'
           },
           {
             expand: true,
             cwd: 'src/assets/js/components/font-awesome/fonts',
-            src:['**'],
-            dest:'dist/assets/fonts'
+            src: ['**'],
+            dest: 'dist/assets/fonts'
           }
         ]
       },
-      assets : {
+      assets: {
         files: [
           {
             expand: true,
             cwd: 'src/assets/img',
-            src:['**'],
-            dest:'dist/assets/img'
+            src: ['**'],
+            dest: 'dist/assets/img'
           }
         ]
       },
 
     },
 
-    watch : {
-      options : {
+    watch: {
+      options: {
         livereload: true
       },
       src: {
         files: [
-        'src/**/*'
+          'src/**/*'
         ],
         tasks: ['assemble']
       }
@@ -128,8 +128,8 @@ module.exports = function(grunt) {
       }
     },
 
-    shell : {
-      publish : {
+    shell: {
+      publish: {
         options: {
           stdout: true,
           stderr: true
