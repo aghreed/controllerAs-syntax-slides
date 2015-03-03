@@ -104,6 +104,16 @@ module.exports = function (grunt) {
           }
         ]
       },
+      plugins: {
+        files: [
+          {
+            expand: true,
+            cwd: 'src/assets/js/components/reveal.js/css/print',
+            src: ['**'],
+            dest: 'dist/assets/css/print'
+          }
+        ]
+      },
 
     },
 
