@@ -44,9 +44,22 @@ html(class="no-js", ng-app="main")
               A controller didn't look much like a controller without <code>$scope</code> sprinkled everywhere
               
           section
-            h3 This should look pretty familiar
-            p.
-              code example here of classic controller syntax
+            h4 This should look pretty familiar...
+            <a href="http://plnkr.co/edit/viIScctXTLcWq9ES1QKZ?p=preview">the classic controller syntax</a>
+            h6 The template
+            <code>
+              <body ng-controller="MainCtrl">
+                <p>Hello {{name}}!</p>
+              </body>
+            </code>
+            h6 the js
+            <code>
+                var app = angular.module('ng-nebraska', []);
+
+                app.controller('MainCtrl', function($scope) {
+                  $scope.name = 'ng-nebraska';
+                });
+            </code>
 
         section
           section
