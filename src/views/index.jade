@@ -47,9 +47,20 @@ html(class="no-js", ng-app="main")
             h4 This should look pretty familiar...
             <a href="http://plnkr.co/edit/viIScctXTLcWq9ES1QKZ?p=preview">the classic controller syntax</a>
             h6 The template
-            <pre><code><body ng-controller="MainCtrl"><p>Hello {{name}}!</p></body></code></pre>
+            pre.
+              <code><body ng-controller="MainCtrl"></code>
+              <code><p>Hello {{name}}!</p></code>
+              <code></body></code>
+              
             h6 the js
-            <pre><code>var app = angular.module('ng-nebraska', []);app.controller('MainCtrl', function($scope) {$scope.name = 'ng-nebraska';});</code></pre>
+            pre.
+              <code>
+              var app = angular.module('ng-nebraska', []);
+              
+              app.controller('MainCtrl', function($scope) {
+                $scope.name = 'ng-nebraska';
+              });
+              </code>
 
         section
           section
@@ -147,6 +158,14 @@ html(class="no-js", ng-app="main")
         section
           h1 The END 
           h4 Q&A?
+          
+        section
+          pre.
+            <code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+            Reveal.addEventListener( 'customevent', function() {
+              console.log( '"customevent" has fired' );
+            } );
+            </code>
 
 
     script(src="./assets/js/app.js")
