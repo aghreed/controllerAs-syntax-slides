@@ -223,9 +223,9 @@
                   app.config(function($stateProvider) {
                     $stateProvider.state('caffeinated', {
                       url: '/coffee',
-                      template: '<div class="coffee container"></div>',
                       controller: 'CoffeeController',
-                      controllerAs: 'cup'
+                      controllerAs: 'cup',
+                      template: '<div class="coffee container">{{cup.beans}}</div>'
                     });
                   });
                 ```
@@ -258,18 +258,6 @@
                 [The obligatory plnkr](http://plnkr.co/edit/jzCdY1Qv66gRMe12YYtC?p=preview)
             </script>
           </section>
-          <section>
-            <h3>Resist temptation of <code>$scope</code> "convenicnes"</h3>
-            <ul class="soft-top">
-              <li>Make <code>$scope</code> injection the <span class="emphasis">exception</span>, not the rule</li>
-              <li>Makes you <span class="emphasis">really</span> think about using a <code>$scope.$watch()</code> (could it be done with `ng-change`?)</li>
-            </ul>
-            <p>Able to remove <code>$scope</code> as a dependency in the majority of controllers</p>
-          </section>
-          <section>
-            <h2>Combats <code>$scope</code> soup</h2>
-            <p>Hopefully you'll have so little <code>$scope</code>, even Carl Weathers wouldn't be able to make a stew... baby.</p><img src="https://digitalbodycount.files.wordpress.com/2011/02/carl-weathers.jpg"/>
-          </section>
           <section data-markdown>
             <script type="text/template">
                 ### Eliminates the need for the "dot" rule
@@ -278,7 +266,7 @@
                 ```
                   <div ng-controller="CoffeeCtrl">
                     <input type="text" ng-model="type"/>
-                    <p>This coffee is {{coffee.type}}</p>
+                    <p>This coffee is {{type}}</p>
                     <div ng-controller="HotCoffeeCtrl">
                       <input type="text" ng-model="type"/>
                       <p>This coffee is {{type}}</p>
@@ -293,6 +281,18 @@
             </script>
           </section>
           <section>
+            <h3>Resist temptation of <code>$scope</code> "convenicnes"</h3>
+            <ul class="soft-top">
+              <li>Make <code>$scope</code> injection the <span class="emphasis">exception</span>, not the rule</li>
+              <li>Makes you <span class="emphasis">really</span> think about using a <code>$scope.$watch()</code> (could it be done with `ng-change`?)</li>
+            </ul>
+            <p>Able to remove <code>$scope</code> as a dependency in the majority of controllers</p>
+          </section>
+          <section>
+            <h2>Combats <code>$scope</code> soup</h2>
+            <p>Hopefully you'll have so little <code>$scope</code>, even Carl Weathers wouldn't be able to make a stew... baby.</p><img src="https://digitalbodycount.files.wordpress.com/2011/02/carl-weathers.jpg"/>
+          </section>
+          <section>
             <h3>Moving towards the future of the web</h3>
             <p>The <code>controllerAs</code> syntax is moving Angular in the direction web components...</p>
             <p>which happens to also be in the direction of both React and Angular 2.0</p>
@@ -300,22 +300,29 @@
         </section>
         <section>
           <section>
-            <h2>Gotchas!</h2>
+            <h2>Gotcha!</h2>
+          </section>
+          <section data-markdown>
+            <script type="text/template">
+                #### Angular's FormController  
+                
+                Make sure you declare the form name prefixed with the assigned `controllerAs` name
+                ***
+                ```
+                  <form name="coffee.form">
+                    <input type="text" name="temperature" ng-model="coffee.temp" 
+                           ng-pattern="coffee.pattern.isNumber" />
+                    <button type="submit" ng-disabled="coffee.form.$invalid">
+                      Set Temp
+                    </button>
+                  </form>
+                ```
+                
+                [The obligatory plnkr](http://plnkr.co/edit/tOVHJNUjmKbv2ZUEvmpO?p=preview)
+            </script>
           </section>
           <section>
-            <h4>Angular's FormController
-              <p>Accessing formController is a bit different - you need to declare the form name prefixed with the assigned controllerAs name</p>
-              <p>[insert code example] of putting controllerAs name in front of the desired form name</p>
-            </h4>
-          </section>
-          <section>
-            <h4>Accessing controllerAs scope variables elsewhere -- not sure i'm going to keep this
-              <p>remember that you'll have to prefix any propety name with assigned controller name</p>
-              <p>however, if you find yourself prefixing in custom directives, you should probably narrow the scope of your directive</p>
-            </h4>
-          </section>
-          <section>
-            <h4>using <code>$watch</code>ers with controllerAs</h4>
+            <h4>using <code>$scope.$watch()</code> with controllerAs</h4>
           </section>
           <section>
             <h4>Unit Testing</h4>

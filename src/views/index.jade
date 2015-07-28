@@ -223,9 +223,9 @@ html(class="no-js", ng-app="main")
               |     app.config(function($stateProvider) {
               |       $stateProvider.state('caffeinated', {
               |         url: '/coffee',
-              |         template: '<div class="coffee container"></div>',
               |         controller: 'CoffeeController',
-              |         controllerAs: 'cup'
+              |         controllerAs: 'cup',
+              |         template: '<div class="coffee container">{{cup.beans}}</div>'
               |       });
               |     });
               |   ```
@@ -255,6 +255,28 @@ html(class="no-js", ng-app="main")
               |   ```
               
               |   [The obligatory plnkr](http://plnkr.co/edit/jzCdY1Qv66gRMe12YYtC?p=preview)
+              
+          section(data-markdown)
+            script(type="text/template")
+              |   ### Eliminates the need for the "dot" rule
+              |   Why we use(d) the "dot" rule? - The pitfall of (classic) controller syntax
+              |   ***
+              |   ```
+              |     <div ng-controller="CoffeeCtrl">
+              |       <input type="text" ng-model="type"/>
+              |       <p>This coffee is {{type}}</p>
+              |       <div ng-controller="HotCoffeeCtrl">
+              |         <input type="text" ng-model="type"/>
+              |         <p>This coffee is {{type}}</p>
+              |         <div ng-controller="ColdCoffeeCtrl">
+              |           <input type="text" ng-model="type"/>
+              |           <p>This coffee is {{type}}</p>
+              |         </div>
+              |       </div>
+              |     </div>
+              |   ```
+              
+              |   [The obligatory plnkr](http://plnkr.co/edit/fDTkQTq6fm3vwerrlZdF?p=preview)
           
           section
             h3 Resist temptation of <code>$scope</code> "convenicnes"
@@ -269,34 +291,6 @@ html(class="no-js", ng-app="main")
             h2 Combats <code>$scope</code> soup
             p Hopefully you'll have so little <code>$scope</code>, even Carl Weathers wouldn't be able to make a stew... baby.
             <img src="https://digitalbodycount.files.wordpress.com/2011/02/carl-weathers.jpg"/>
-            
-          section(data-markdown)
-            script(type="text/template")
-              |   ### Eliminates the need for the "dot" rule
-              |   Why we use(d) the "dot" rule? - The pitfall of (classic) controller syntax
-              |   ***
-              |   ```
-              |     <div ng-controller="CoffeeCtrl">
-              |       <input type="text" ng-model="type"/>
-              |       <p>This coffee is {{coffee.type}}</p>
-              |       <div ng-controller="HotCoffeeCtrl">
-              |         <input type="text" ng-model="type"/>
-              |         <p>This coffee is {{type}}</p>
-              |         <div ng-controller="ColdCoffeeCtrl">
-              |           <input type="text" ng-model="type"/>
-              |           <p>This coffee is {{type}}</p>
-              |         </div>
-              |       </div>
-              |     </div>
-              |   ```
-              
-              |   [The obligatory plnkr](http://plnkr.co/edit/fDTkQTq6fm3vwerrlZdF?p=preview)
-              
-          //- section
-          //-   h4 "dot" rule continued.
-          //-   p perhaps need to explain (and possibly snag the snippet of angular source) 
-          //-   p how controllerAs controllers get created and how "this" really gets put onto $scope as whatever 
-          //-   p the string value you have as the "controllerAs" setting
               
           section
             h3 Moving towards the future of the web
@@ -305,20 +299,33 @@ html(class="no-js", ng-app="main")
       
         section
           section
-            h2 Gotchas!
+            h2 Gotcha!
             
-          section
-            h4 Angular's FormController
-              p Accessing formController is a bit different - you need to declare the form name prefixed with the assigned controllerAs name
-              p [insert code example] of putting controllerAs name in front of the desired form name
+          section(data-markdown)
+            script(type="text/template")
+              |   #### Angular's FormController  
+              |   
+              |   Make sure you declare the form name prefixed with the assigned `controllerAs` name
+              |   ***
+              |   ```
+              |     <form name="coffee.form">
+              |       <input type="text" name="temperature" ng-model="coffee.temp" 
+              |              ng-pattern="coffee.pattern.isNumber" />
+              |       <button type="submit" ng-disabled="coffee.form.$invalid">
+              |         Set Temp
+              |       </button>
+              |     </form>
+              |   ```
+              |   
+              |   [The obligatory plnkr](http://plnkr.co/edit/tOVHJNUjmKbv2ZUEvmpO?p=preview)
           
+          //- section
+          //-   h4 Accessing controllerAs scope variables elsewhere -- not sure i'm going to keep this
+          //-    p remember that you'll have to prefix any propety name with assigned controller name
+          //-    p however, if you find yourself prefixing in custom directives, you should probably narrow the scope of your directive
+          //-    
           section
-            h4 Accessing controllerAs scope variables elsewhere -- not sure i'm going to keep this
-             p remember that you'll have to prefix any propety name with assigned controller name
-             p however, if you find yourself prefixing in custom directives, you should probably narrow the scope of your directive
-             
-          section
-            h4 using <code>$watch</code>ers with controllerAs
+            h4 using <code>$scope.$watch()</code> with controllerAs
             
           section
             h4 Unit Testing
