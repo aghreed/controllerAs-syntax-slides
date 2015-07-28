@@ -270,16 +270,27 @@
             <h2>Combats <code>$scope</code> soup</h2>
             <p>Hopefully you'll have so little <code>$scope</code>, even Carl Weathers wouldn't be able to make a stew... baby.</p><img src="https://digitalbodycount.files.wordpress.com/2011/02/carl-weathers.jpg"/>
           </section>
-          <section>
-            <h4>eliminates the need for the "dot" rule</h4>
-            <p>Why we use(d) the "dot" rule?</p>
-            <p>[insert code example] showcasing the downfall of not using a dot in classic controller syntax</p>
-          </section>
-          <section>
-            <h4>"dot" rule continued.</h4>
-            <p>perhaps need to explain (and possibly snag the snippet of angular source) </p>
-            <p>how controllerAs controllers get created and how "this" really gets put onto $scope as whatever </p>
-            <p>the string value you have as the "controllerAs" setting</p>
+          <section data-markdown>
+            <script type="text/template">
+                ### Eliminates the need for the "dot" rule
+                Why we use(d) the "dot" rule? - The pitfall of (classic) controller syntax
+                ***
+                ```
+                  <div ng-controller="CoffeeCtrl">
+                    <input type="text" ng-model="type"/>
+                    <p>This coffee is {{coffee.type}}</p>
+                    <div ng-controller="HotCoffeeCtrl">
+                      <input type="text" ng-model="type"/>
+                      <p>This coffee is {{type}}</p>
+                      <div ng-controller="ColdCoffeeCtrl">
+                        <input type="text" ng-model="type"/>
+                        <p>This coffee is {{type}}</p>
+                      </div>
+                    </div>
+                  </div>
+                ```
+                [The obligatory plnkr](http://plnkr.co/edit/fDTkQTq6fm3vwerrlZdF?p=preview)
+            </script>
           </section>
           <section>
             <h3>Moving towards the future of the web</h3>

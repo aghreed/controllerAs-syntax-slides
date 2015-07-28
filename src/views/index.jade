@@ -270,16 +270,33 @@ html(class="no-js", ng-app="main")
             p Hopefully you'll have so little <code>$scope</code>, even Carl Weathers wouldn't be able to make a stew... baby.
             <img src="https://digitalbodycount.files.wordpress.com/2011/02/carl-weathers.jpg"/>
             
-          section
-            h4 eliminates the need for the "dot" rule
-            p Why we use(d) the "dot" rule?
-            p [insert code example] showcasing the downfall of not using a dot in classic controller syntax
+          section(data-markdown)
+            script(type="text/template")
+              |   ### Eliminates the need for the "dot" rule
+              |   Why we use(d) the "dot" rule? - The pitfall of (classic) controller syntax
+              |   ***
+              |   ```
+              |     <div ng-controller="CoffeeCtrl">
+              |       <input type="text" ng-model="type"/>
+              |       <p>This coffee is {{coffee.type}}</p>
+              |       <div ng-controller="HotCoffeeCtrl">
+              |         <input type="text" ng-model="type"/>
+              |         <p>This coffee is {{type}}</p>
+              |         <div ng-controller="ColdCoffeeCtrl">
+              |           <input type="text" ng-model="type"/>
+              |           <p>This coffee is {{type}}</p>
+              |         </div>
+              |       </div>
+              |     </div>
+              |   ```
               
-          section
-            h4 "dot" rule continued.
-            p perhaps need to explain (and possibly snag the snippet of angular source) 
-            p how controllerAs controllers get created and how "this" really gets put onto $scope as whatever 
-            p the string value you have as the "controllerAs" setting
+              |   [The obligatory plnkr](http://plnkr.co/edit/fDTkQTq6fm3vwerrlZdF?p=preview)
+              
+          //- section
+          //-   h4 "dot" rule continued.
+          //-   p perhaps need to explain (and possibly snag the snippet of angular source) 
+          //-   p how controllerAs controllers get created and how "this" really gets put onto $scope as whatever 
+          //-   p the string value you have as the "controllerAs" setting
               
           section
             h3 Moving towards the future of the web
