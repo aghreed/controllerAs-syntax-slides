@@ -145,7 +145,7 @@ html(class="no-js", ng-app="main")
               |           temp: '@',
               |           brew: '&'
               |         },
-              |         controller: 'hotCoffeeCtrl',
+              |         controller: 'HotCoffeeCtrl',
               |         controllerAs: 'coffee',
               |         ...
               |       };
@@ -164,7 +164,7 @@ html(class="no-js", ng-app="main")
               |   ***
               
               |   ```
-              |     app.directive('icedCoffee', function () {
+              |     app.directive('hotCoffee', function () {
               |       return {
               |         restrict: 'EA',
               |         scope: {
@@ -172,8 +172,8 @@ html(class="no-js", ng-app="main")
               |           temp: '@',
               |           brew: '&'
               |         },
-              |         controller: '',
-              |         controllerAs: '',
+              |         controller: 'HotCoffeeCtrl',
+              |         controllerAs: 'coffee',
               |         bindToController: true,
               |         ...
               |       };
@@ -189,12 +189,12 @@ html(class="no-js", ng-app="main")
               |   ***
               
               |   ```
-              |     app.directive('americano', function () {
+              |     app.directive('hotCoffee', function () {
               |       return {
               |         restrict: 'EA',
               |         scope: true,
-              |         controller: '',
-              |         controllerAs: '',
+              |         controller: 'HotCoffeeCtrl',
+              |         controllerAs: 'coffee',
               |         bindToController: {
               |           beans: '=',
               |           temp: '@',
@@ -240,12 +240,12 @@ html(class="no-js", ng-app="main")
               |   ### Explicitly specific binding in the template
               |   ***
               |   ```
-              |     <div ng-controller="coffeeCtrl as coffee">
+              |     <div ng-controller="CoffeeCtrl as coffee">
               |       <p>This coffee is {{coffee.type}}</p>
-              |       <div ng-controller="hotCoffeeCtrl as hot">
+              |       <div ng-controller="HotCoffeeCtrl as hot">
               |         <p>This coffee is {{hot.type}}</p>
               |         <p>This coffee is {{coffee.type}}</p>
-              |         <div ng-controller="coldCoffeeCtrl as cold">
+              |         <div ng-controller="ColdCoffeeCtrl as cold">
               |           <p>This coffee is {{cold.type}}</p>
               |           <p>This coffee is {{coffee.type}}</p>
               |           <p>This coffee is {{hot.type}}</p>
@@ -260,32 +260,31 @@ html(class="no-js", ng-app="main")
             h3 Resist temptation of <code>$scope</code> "convenicnes"
             
             ul.soft-top
-              li Make <code>$scope</code> injection the <span class="emphasis">exception</span>, not the norm
-              li Remove <code>$scope</code> as a dependency in the majority of controllers
+              li Make <code>$scope</code> injection the <span class="emphasis">exception</span>, not the rule
               li Makes you <span class="emphasis">really</span> think about using a <code>$scope.$watch()</code> (could it be done with `ng-change`?)
+              
+            p Able to remove <code>$scope</code> as a dependency in the majority of controllers
             
           section
             h2 Combats <code>$scope</code> soup
-            p
-              [insert picture of scope soup]
+            p Hopefully you'll have so little <code>$scope</code>, even Carl Weathers wouldn't be able to make a stew... baby.
+            <img src="https://digitalbodycount.files.wordpress.com/2011/02/carl-weathers.jpg"/>
             
           section
             h4 eliminates the need for the "dot" rule
-            p
-              Why we use(d) the "dot" rule?
-              // code example showcasing the downfall of not using a dot in classic controller syntax
+            p Why we use(d) the "dot" rule?
+            p [insert code example] showcasing the downfall of not using a dot in classic controller syntax
               
           section
             h4 "dot" rule continued.
-            p
-              perhaps need to explain (and possibly snag the snippet of angular source) 
-              how controllerAs controllers get created and how "this" really gets put onto $scope as whatever 
-              the string value you have as the "controllerAs" setting
+            p perhaps need to explain (and possibly snag the snippet of angular source) 
+            p how controllerAs controllers get created and how "this" really gets put onto $scope as whatever 
+            p the string value you have as the "controllerAs" setting
               
           section
-            h4 Moving towards the future of the web
-            p
-              controllerAs syntax moves angular in the direction web components (or react components)
+            h3 Moving towards the future of the web
+            p The <code>controllerAs</code> syntax is moving Angular in the direction web components...
+            p which happens to also be in the direction of both React and Angular 2.0
       
         section
           section
@@ -293,9 +292,8 @@ html(class="no-js", ng-app="main")
             
           section
             h4 Angular's FormController
-            p
-              Accessing formController is a bit different - you need to declare the form name prefixed with the assigned controllerAs name
-              // code example of putting controllerAs name in front of the desired form name
+              p Accessing formController is a bit different - you need to declare the form name prefixed with the assigned controllerAs name
+              p [insert code example] of putting controllerAs name in front of the desired form name
           
           section
             h4 Accessing controllerAs scope variables elsewhere -- not sure i'm going to keep this
@@ -304,6 +302,11 @@ html(class="no-js", ng-app="main")
              
           section
             h4 using <code>$watch</code>ers with controllerAs
+            
+          section
+            h4 Unit Testing
+            h6 and here you thought I wasn't going to mention it
+              p [insert code example] of unit testing a controllerAs controller
             
         section
           h1 The END 

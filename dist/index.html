@@ -146,7 +146,7 @@
                         temp: '@',
                         brew: '&'
                       },
-                      controller: 'hotCoffeeCtrl',
+                      controller: 'HotCoffeeCtrl',
                       controllerAs: 'coffee',
                       ...
                     };
@@ -164,7 +164,7 @@
                 Post Angular v1.3.0, this property becomes available
                 ***
                 ```
-                  app.directive('icedCoffee', function () {
+                  app.directive('hotCoffee', function () {
                     return {
                       restrict: 'EA',
                       scope: {
@@ -172,8 +172,8 @@
                         temp: '@',
                         brew: '&'
                       },
-                      controller: '',
-                      controllerAs: '',
+                      controller: 'HotCoffeeCtrl',
+                      controllerAs: 'coffee',
                       bindToController: true,
                       ...
                     };
@@ -189,12 +189,12 @@
                 Post Angular v1.4.0, a property adaptation is available
                 ***
                 ```
-                  app.directive('americano', function () {
+                  app.directive('hotCoffee', function () {
                     return {
                       restrict: 'EA',
                       scope: true,
-                      controller: '',
-                      controllerAs: '',
+                      controller: 'HotCoffeeCtrl',
+                      controllerAs: 'coffee',
                       bindToController: {
                         beans: '=',
                         temp: '@',
@@ -242,12 +242,12 @@
                 ### Explicitly specific binding in the template
                 ***
                 ```
-                  <div ng-controller="coffeeCtrl as coffee">
+                  <div ng-controller="CoffeeCtrl as coffee">
                     <p>This coffee is {{coffee.type}}</p>
-                    <div ng-controller="hotCoffeeCtrl as hot">
+                    <div ng-controller="HotCoffeeCtrl as hot">
                       <p>This coffee is {{hot.type}}</p>
                       <p>This coffee is {{coffee.type}}</p>
-                      <div ng-controller="coldCoffeeCtrl as cold">
+                      <div ng-controller="ColdCoffeeCtrl as cold">
                         <p>This coffee is {{cold.type}}</p>
                         <p>This coffee is {{coffee.type}}</p>
                         <p>This coffee is {{hot.type}}</p>
@@ -261,35 +261,30 @@
           <section>
             <h3>Resist temptation of <code>$scope</code> "convenicnes"</h3>
             <ul class="soft-top">
-              <li>Make <code>$scope</code> injection the <span class="emphasis">exception</span>, not the norm</li>
-              <li>Remove <code>$scope</code> as a dependency in the majority of controllers</li>
+              <li>Make <code>$scope</code> injection the <span class="emphasis">exception</span>, not the rule</li>
               <li>Makes you <span class="emphasis">really</span> think about using a <code>$scope.$watch()</code> (could it be done with `ng-change`?)</li>
             </ul>
+            <p>Able to remove <code>$scope</code> as a dependency in the majority of controllers</p>
           </section>
           <section>
             <h2>Combats <code>$scope</code> soup</h2>
-            <p>[insert picture of scope soup]</p>
+            <p>Hopefully you'll have so little <code>$scope</code>, even Carl Weathers wouldn't be able to make a stew... baby.</p><img src="https://digitalbodycount.files.wordpress.com/2011/02/carl-weathers.jpg"/>
           </section>
           <section>
             <h4>eliminates the need for the "dot" rule</h4>
-            <p>
-              <Why>we use(d) the "dot" rule?</Why>
-              <!-- code example showcasing the downfall of not using a dot in classic controller syntax-->
-            </p>
+            <p>Why we use(d) the "dot" rule?</p>
+            <p>[insert code example] showcasing the downfall of not using a dot in classic controller syntax</p>
           </section>
           <section>
             <h4>"dot" rule continued.</h4>
-            <p>
-              <perhaps>need to explain (and possibly snag the snippet of angular source) </perhaps>
-              <how>controllerAs controllers get created and how "this" really gets put onto $scope as whatever </how>
-              <the>string value you have as the "controllerAs" setting</the>
-            </p>
+            <p>perhaps need to explain (and possibly snag the snippet of angular source) </p>
+            <p>how controllerAs controllers get created and how "this" really gets put onto $scope as whatever </p>
+            <p>the string value you have as the "controllerAs" setting</p>
           </section>
           <section>
-            <h4>Moving towards the future of the web</h4>
-            <p>
-              <controllerAs>syntax moves angular in the direction web components (or react components)</controllerAs>
-            </p>
+            <h3>Moving towards the future of the web</h3>
+            <p>The <code>controllerAs</code> syntax is moving Angular in the direction web components...</p>
+            <p>which happens to also be in the direction of both React and Angular 2.0</p>
           </section>
         </section>
         <section>
@@ -297,11 +292,10 @@
             <h2>Gotchas!</h2>
           </section>
           <section>
-            <h4>Angular's FormController</h4>
-            <p>
-              <Accessing>formController is a bit different - you need to declare the form name prefixed with the assigned controllerAs name</Accessing>
-              <!-- code example of putting controllerAs name in front of the desired form name-->
-            </p>
+            <h4>Angular's FormController
+              <p>Accessing formController is a bit different - you need to declare the form name prefixed with the assigned controllerAs name</p>
+              <p>[insert code example] of putting controllerAs name in front of the desired form name</p>
+            </h4>
           </section>
           <section>
             <h4>Accessing controllerAs scope variables elsewhere -- not sure i'm going to keep this
@@ -311,6 +305,12 @@
           </section>
           <section>
             <h4>using <code>$watch</code>ers with controllerAs</h4>
+          </section>
+          <section>
+            <h4>Unit Testing</h4>
+            <h6>and here you thought I wasn't going to mention it
+              <p>[insert code example] of unit testing a controllerAs controller</p>
+            </h6>
           </section>
         </section>
         <section>
