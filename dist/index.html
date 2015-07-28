@@ -35,10 +35,10 @@
         <section>
           <h2>What all we will cover...</h2>
           <ol class="soft-top">
-            <li>The conceptual difference of controllerAs</li>
-            <li>The changes controllerAs has in directive and route definitions</li>
-            <li>The benefits of controllerAs and why you should be using it</li>
-            <li>The gotchas when transitioning to controllerAs (for me at least)</li>
+            <li>Conceptual difference of controllerAs</li>
+            <li>Changes controllerAs has in directive and route definitions</li>
+            <li>Benefits of controllerAs and why you should be using it</li>
+            <li>A couple gotchas when transitioning to controllerAs (for me at least)</li>
           </ol>
         </section>
         <section>
@@ -179,7 +179,7 @@
                     };
                   });
                 ```
-                ***
+                
                 [The obligatory plnkr](http://plnkr.co/edit/tgmELwCc81xU1yFYbfjF?p=preview)
             </script>
           </section>
@@ -204,7 +204,7 @@
                     };
                   });
                 ```
-                ***
+                
                 [The obligatory plnkr](http://plnkr.co/edit/f0FnCJY2SqEP0nitfxjQ?p=preview)
             </script>
           </section>
@@ -290,7 +290,7 @@
           </section>
           <section>
             <h2>Combats <code>$scope</code> soup</h2>
-            <p>Hopefully you'll have so little <code>$scope</code>, even Carl Weathers wouldn't be able to make a stew... baby.</p><img src="https://digitalbodycount.files.wordpress.com/2011/02/carl-weathers.jpg"/>
+            <p>Hopefully you'll have so little <code>$scope</code>, even Carl Weathers wouldn't be able to make a stew...</p><img src="https://digitalbodycount.files.wordpress.com/2011/02/carl-weathers.jpg"/>
           </section>
           <section>
             <h3>Moving towards the future of the web</h3>
@@ -321,14 +321,27 @@
                 [The obligatory plnkr](http://plnkr.co/edit/tOVHJNUjmKbv2ZUEvmpO?p=preview)
             </script>
           </section>
-          <section>
-            <h4>using <code>$scope.$watch()</code> with controllerAs</h4>
-          </section>
-          <section>
-            <h4>Unit Testing</h4>
-            <h6>and here you thought I wasn't going to mention it
-              <p>[insert code example] of unit testing a controllerAs controller</p>
-            </h6>
+          <section data-markdown>
+            <script type="text/template">
+                #### Using `$scope.$watch()` with controllerAs
+                
+                Ensuring we are watching the right thing... wait – we can watch functions?
+                ***
+                ```
+                  // nope...
+                  $scope.$watch('temp', function () {...});  
+                  
+                  // not this either...
+                  $scope.$watch('self.temp', function () {...});  
+                  
+                  // let's try this...
+                  $scope.$watch(function () { 
+                    return self.temp; 
+                  }, function () {...});
+                ```
+                
+                [The obligatory plnkr](http://plnkr.co/edit/tEUPnQ8I6110iZE7mvyg?p=preview)
+            </script>
           </section>
         </section>
         <section>

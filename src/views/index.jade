@@ -30,10 +30,10 @@ html(class="no-js", ng-app="main")
         section
           h2 What all we will cover...
           ol.soft-top
-            li The conceptual difference of controllerAs
-            li The changes controllerAs has in directive and route definitions
-            li The benefits of controllerAs and why you should be using it
-            li The gotchas when transitioning to controllerAs (for me at least)
+            li Conceptual difference of controllerAs
+            li Changes controllerAs has in directive and route definitions
+            li Benefits of controllerAs and why you should be using it
+            li A couple gotchas when transitioning to controllerAs (for me at least)
 
         section
           section
@@ -179,7 +179,7 @@ html(class="no-js", ng-app="main")
               |       };
               |     });
               |   ```
-              |   ***
+              |   
               |   [The obligatory plnkr](http://plnkr.co/edit/tgmELwCc81xU1yFYbfjF?p=preview)
               
           section(data-markdown).padded
@@ -204,7 +204,7 @@ html(class="no-js", ng-app="main")
               |       };
               |     });
               |   ```
-              |   ***
+              |   
               |   [The obligatory plnkr](http://plnkr.co/edit/f0FnCJY2SqEP0nitfxjQ?p=preview)
             
             
@@ -289,7 +289,7 @@ html(class="no-js", ng-app="main")
             
           section
             h2 Combats <code>$scope</code> soup
-            p Hopefully you'll have so little <code>$scope</code>, even Carl Weathers wouldn't be able to make a stew... baby.
+            p Hopefully you'll have so little <code>$scope</code>, even Carl Weathers wouldn't be able to make a stew...
             <img src="https://digitalbodycount.files.wordpress.com/2011/02/carl-weathers.jpg"/>
               
           section
@@ -319,18 +319,26 @@ html(class="no-js", ng-app="main")
               |   
               |   [The obligatory plnkr](http://plnkr.co/edit/tOVHJNUjmKbv2ZUEvmpO?p=preview)
           
-          //- section
-          //-   h4 Accessing controllerAs scope variables elsewhere -- not sure i'm going to keep this
-          //-    p remember that you'll have to prefix any propety name with assigned controller name
-          //-    p however, if you find yourself prefixing in custom directives, you should probably narrow the scope of your directive
-          //-    
-          section
-            h4 using <code>$scope.$watch()</code> with controllerAs
-            
-          section
-            h4 Unit Testing
-            h6 and here you thought I wasn't going to mention it
-              p [insert code example] of unit testing a controllerAs controller
+          section(data-markdown)
+            script(type="text/template")
+              |   #### Using `$scope.$watch()` with controllerAs
+              |   
+              |   Ensuring we are watching the right thing... wait – we can watch functions?
+              |   ***
+              |   ```
+              |     // nope...
+              |     $scope.$watch('temp', function () {...});  
+              |     
+              |     // not this either...
+              |     $scope.$watch('self.temp', function () {...});  
+              |     
+              |     // let's try this...
+              |     $scope.$watch(function () { 
+              |       return self.temp; 
+              |     }, function () {...});
+              |   ```
+              |   
+              |   [The obligatory plnkr](http://plnkr.co/edit/tEUPnQ8I6110iZE7mvyg?p=preview)
             
         section
           h1 The END 
