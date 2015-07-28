@@ -33,39 +33,40 @@
           </p>
         </section>
         <section>
-          <h2>What all we will cover</h2>
-          <ol>
+          <h2>What all we will cover...</h2>
+          <ol class="soft-top">
             <li>The conceptual difference of controllerAs</li>
-            <li>The changes in directive and route definitions</li>
-            <li>The benefits and why you should be using it</li>
-            <li>The gotchas when transitioning (for me at least)</li>
+            <li>The changes controllerAs has in directive and route definitions</li>
+            <li>The benefits of controllerAs and why you should be using it</li>
+            <li>The gotchas when transitioning to controllerAs (for me at least)</li>
           </ol>
         </section>
         <section>
           <section>
             <h2>The (Classic) Controller Syntax</h2>
-            <p>Pre Angular v1.2, we were depdendent upon the <code>$scope</code> variable for binding to the view or exposing functions to the DOM.</p>
+            <p>Before Angular v1.2.0 came around, we were depdendent upon the <code>$scope</code> variable</p>
             <p>
               A controller didn't look much like a controller without <code>$scope</code> sprinkled everywhere
               
             </p>
           </section>
-          <section>
-            <h4>This should look pretty familiar...</h4><a href="http://plnkr.co/edit/viIScctXTLcWq9ES1QKZ?p=preview">the classic controller syntax</a>
-            <h6>The template</h6>
-            <pre><code><body ng-controller="MainCtrl"></code>
-<code><p>Hello {{name}}!</p></code>
-<code></body></code>
-</pre>
-            <h6>the js</h6>
-            <pre><code>
-var app = angular.module('ng-nebraska', []);
-
-app.controller('MainCtrl', function($scope) {
-  $scope.name = 'ng-nebraska';
-});
-</code>
-</pre>
+          <section data-markdown>
+            <script type="text/template">
+                ## This should look pretty familiar...
+                The HTML snippet:
+                ```   
+                  <body ng-controller="MainCtrl">
+                    <p>Hello {{name}}!</p>
+                  </body>
+                ```
+                The JS snippet:
+                ```
+                  app.controller('MainCtrl', function ($scope) {
+                    $scope.name = 'ng-nebraska';
+                  });
+                ```
+                [The obligatory plnkr](http://plnkr.co/edit/viIScctXTLcWq9ES1QKZ?p=preview)
+            </script>
           </section>
         </section>
         <section>
@@ -76,11 +77,55 @@ app.controller('MainCtrl', function($scope) {
               
             </p>
           </section>
-          <section>
-            <h4>Side by side comparison between JS class and NG controller </h4>
+          <section data-markdown>
+            <script type="text/template">
+                ### Controller as just a class
+                ***
+                #### JS class
+                ```
+                  var coffeeCup = function () {
+                    this.type = 'just coffee.';
+                    
+                    this.brew = function () { ... };
+                  };
+                  
+                  var myCoffee = new coffeeCup();
+                  
+                ```
+                ***
+                #### angular controller
+                ```
+                  app.controller('CoffeeCupCtrl', function () {
+                    this.type = 'just coffee.';
+                    
+                    this.brew = function () { ... };
+                  });
+                  
+                ```
+                Think about controllers as instantiating a class (controller) **as** the configured `controllerAs` name in the view
+            </script>
           </section>
-          <section>
-            <h4>side by side showing of controller snippet + template snippet to draw connections</h4>
+          <section data-markdown>
+            <script type="text/template">
+                ## How controllerAs syntax changes things a bit...
+                ***
+                The HTML snippet:
+                ```
+                  <body ng-controller="MainCtrl as main">
+                    <p>Hello {{main.name}}!</p>
+                  </body>
+                ```
+                ***
+                The JS snippet:
+                ```
+                  app.controller('MainCtrl', function () {
+                    var self = this;
+                
+                    self.name = 'ng-nebraska';
+                  });
+                ```
+                [The obligatory plnkr](http://plnkr.co/edit/JxdsKEIVZ7xw60V5V3Tk?p=preview)
+            </script>
           </section>
         </section>
         <section>
@@ -88,69 +133,162 @@ app.controller('MainCtrl', function($scope) {
             <h2>How controllerAs changes:</h2>
             <h4>Custom Directives</h4>
           </section>
-          <section>
-            <h2><code>controllerAs</code> property</h2>
-            <p>. // simple code example to show the most basic with a controllerAs property -- you can also do it 'controller as Ctrl', I think... need to check</p>
+          <section data-markdown class="padded">
+            <script type="text/template">
+                ## The `controllerAs` property
+                ***
+                ```
+                  app.directive('hotCoffee', function () {
+                    return {
+                      restrict: 'EA',
+                      scope: {
+                        beans: '=',
+                        temp: '@',
+                        brew: '&'
+                      },
+                      controller: 'hotCoffeeCtrl',
+                      controllerAs: 'coffee',
+                      ...
+                    };
+                  });
+                ```
+                   But this is a bit wonky because we're forced to make a decision...  
+                   Consistency in the template or a dirty feeling `link` function?
+                    
+                 [The obligatory plnkr](http://plnkr.co/edit/JAMYwcuZr4EP75Jqq9OS?p=preview)
+            </script>
           </section>
-          <section>
-            <h2><code>bindToController</code> property</h2>
-            <h4>Post angular 1.3.0, this property becomes available</h4>
-            <p>. explain a bit about how this works</p>
-            <p>. // give code example of this in action -- keep it to the simple "true" value in this slide</p>
+          <section data-markdown class="padded">
+            <script type="text/template">
+                ## The `bindToController` property
+                Post Angular v1.3.0, this property becomes available
+                ***
+                ```
+                  app.directive('icedCoffee', function () {
+                    return {
+                      restrict: 'EA',
+                      scope: {
+                        beans: '=',
+                        temp: '@',
+                        brew: '&'
+                      },
+                      controller: '',
+                      controllerAs: '',
+                      bindToController: true,
+                      ...
+                    };
+                  });
+                ```
+                ***
+                [The obligatory plnkr](http://plnkr.co/edit/tgmELwCc81xU1yFYbfjF?p=preview)
+            </script>
           </section>
-          <section>
-            <h2><code>bindToController</code> property cont.</h2>
-            <h4>Post angular 1.4.0, this property adaptation becomes available</h4>
-            <p>. alternatively, you can set the scope property you want in the object on bindToController, and then set scope to 'true'</p>
-            <p>. // give code example of this </p>
+          <section data-markdown class="padded">
+            <script type="text/template">
+                ## Expanding on the `bindToController` property
+                Post Angular v1.4.0, a property adaptation is available
+                ***
+                ```
+                  app.directive('americano', function () {
+                    return {
+                      restrict: 'EA',
+                      scope: true,
+                      controller: '',
+                      controllerAs: '',
+                      bindToController: {
+                        beans: '=',
+                        temp: '@',
+                        brew: '&'
+                      },
+                      ...
+                    };
+                  });
+                ```
+                ***
+                [The obligatory plnkr](http://plnkr.co/edit/f0FnCJY2SqEP0nitfxjQ?p=preview)
+            </script>
           </section>
         </section>
         <section>
-          <h2>How controllerAs changes:</h2>
-          <h4>ui-router state definitions</h4>
-          <p>. // can likely just keep this slide one deep and include code example showing slight config change</p>
+          <section>
+            <h2>How controllerAs changes:</h2>
+            <h4>ui-router state definitions</h4>
+          </section>
+          <section data-markdown class="padded">
+            <script type="text/template">
+                ## The `controllerAs` property, again 
+                `$stateProvider.state` supports `controllerAs` syntax
+                ***
+                ```
+                  app.config(function($stateProvider) {
+                    $stateProvider.state('caffeinated', {
+                      url: '/coffee',
+                      template: '<div class="coffee container"></div>',
+                      controller: 'CoffeeController',
+                      controllerAs: 'cup'
+                    });
+                  });
+                ```
+                If you want to learn more about UI-Router, check out one of [ng-nebraska's previous talks](https://github.com/ng-nebraska/ng-nebraska-ui-router)
+            </script>
+          </section>
         </section>
         <section>
           <section>
             <h2>Benefits</h2>
           </section>
-          <section>
-            <h4>explicitly specific binding in the template</h4>
-            <p>
-              snippet to showcase the nested controller example, specifically the impact it has on templates
-              
-            </p>
+          <section data-markdown class="padded">
+            <script type="text/template">
+                ### Explicitly specific binding in the template
+                ***
+                ```
+                  <div ng-controller="coffeeCtrl as coffee">
+                    <p>This coffee is {{coffee.type}}</p>
+                    <div ng-controller="hotCoffeeCtrl as hot">
+                      <p>This coffee is {{hot.type}}</p>
+                      <p>This coffee is {{coffee.type}}</p>
+                      <div ng-controller="coldCoffeeCtrl as cold">
+                        <p>This coffee is {{cold.type}}</p>
+                        <p>This coffee is {{coffee.type}}</p>
+                        <p>This coffee is {{hot.type}}</p>
+                      </div>
+                    </div>
+                  </div>
+                ```
+                [The obligatory plnkr](http://plnkr.co/edit/jzCdY1Qv66gRMe12YYtC?p=preview)
+            </script>
           </section>
           <section>
-            <h4>resist temptation of $scope "conveninces"</h4>
-            <p>Makes you __really__ think about using that $scope.$watch</p>
-            <p>. can remove $scope as a dependency in a majority of controllers, bringing it in for the exception case, not the norm</p>
+            <h3>Resist temptation of <code>$scope</code> "convenicnes"</h3>
+            <ul class="soft-top">
+              <li>Make <code>$scope</code> injection the <span class="emphasis">exception</span>, not the norm</li>
+              <li>Remove <code>$scope</code> as a dependency in the majority of controllers</li>
+              <li>Makes you <span class="emphasis">really</span> think about using a <code>$scope.$watch()</code> (could it be done with `ng-change`?)</li>
+            </ul>
           </section>
           <section>
-            <h4>combats $scope soup? should I keep this??</h4>
+            <h2>Combats <code>$scope</code> soup</h2>
+            <p>[insert picture of scope soup]</p>
           </section>
           <section>
             <h4>eliminates the need for the "dot" rule</h4>
             <p>
-              Why we use(d) the "dot" rule?
-              // code example showcasing the downfall of not using a dot in classic controller syntax
-              
+              <Why>we use(d) the "dot" rule?</Why>
+              <!-- code example showcasing the downfall of not using a dot in classic controller syntax-->
             </p>
           </section>
           <section>
             <h4>"dot" rule continued.</h4>
             <p>
-              perhaps need to explain (and possibly snag the snippet of angular source) 
-              how controllerAs controllers get created and how "this" really gets put onto $scope as whatever 
-              the string value you have as the "controllerAs" setting
-              
+              <perhaps>need to explain (and possibly snag the snippet of angular source) </perhaps>
+              <how>controllerAs controllers get created and how "this" really gets put onto $scope as whatever </how>
+              <the>string value you have as the "controllerAs" setting</the>
             </p>
           </section>
           <section>
             <h4>Moving towards the future of the web</h4>
             <p>
-              controllerAs syntax moves angular in the direction web components (or react components)
-              
+              <controllerAs>syntax moves angular in the direction web components (or react components)</controllerAs>
             </p>
           </section>
         </section>
@@ -161,15 +299,14 @@ app.controller('MainCtrl', function($scope) {
           <section>
             <h4>Angular's FormController</h4>
             <p>
-              Accessing formController is a bit different - you need to declare the form name prefixed with the assigned controllerAs name
-              // code example of putting controllerAs name in front of the desired form name
-              
+              <Accessing>formController is a bit different - you need to declare the form name prefixed with the assigned controllerAs name</Accessing>
+              <!-- code example of putting controllerAs name in front of the desired form name-->
             </p>
           </section>
           <section>
             <h4>Accessing controllerAs scope variables elsewhere -- not sure i'm going to keep this
-              <p>. remember that you'll have to prefix any propety name with assigned controller name</p>
-              <p>. however, if you find yourself prefixing in custom directives, you should probably narrow the scope of your directive</p>
+              <p>remember that you'll have to prefix any propety name with assigned controller name</p>
+              <p>however, if you find yourself prefixing in custom directives, you should probably narrow the scope of your directive</p>
             </h4>
           </section>
           <section>
@@ -179,15 +316,6 @@ app.controller('MainCtrl', function($scope) {
         <section>
           <h1>The END </h1>
           <h4>Q&A?</h4>
-        </section>
-        <section>
-          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-Reveal.addEventListener( 'customevent', function() {
-  console.log( '"customevent" has fired' );
-} );
-</code>
-
-</pre>
         </section>
       </div>
     </div>
